@@ -124,16 +124,6 @@ else
 	exit 0
 fi
 
-#while true; do # Esto genera un menú
-#datos=$(yad --title="Programas seleccionados" --width=600 --height=550 \
-#            --text="$TITLE $versioncupmouse \n\nSelecciona los paquetes a instalar:" \
-#            --list --column="Selección" --column="Paquetes" --column="Descripción"\
-#            --checklist FALSE "Chromium" "Navegador de google" FALSE "GDM2Setup" "Herramienta gráfica que permite configurar GDM" FALSE "VideoLAN" "Reproductor de video en su última versión en desarrollo" FALSE "Multimedia" "Programas para ver y gestionar archivos multimedia" \
-#             --button="gtk-ok:0" --button="Salir:2")
-#ret=$?
-
-#[[ $ret -eq 2 ]] && exit 0 #Resultado 1 es la opción de Salir
-
 choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         --text="Bienvenido al instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\nSelecciona los paquetes a instalar:" \
         --list --column="Selección" --column="Paquete" --column="Descripción"\
@@ -143,6 +133,7 @@ choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         FALSE "Screenkey" "A screencast tool to display your keys, inspired by Screenflick."\
         FALSE "Plugins Gedit" "Plugins para añadir funcionalidades a Gedit."\
         FALSE "Tools PDF" "Herramientas para gestionar PDF."\
+        FALSE "Okular" "Okular is a universal document viewer with support for advanced document features, such as annotations, forms, and embedded files."\
         FALSE "Scripts Nautilus" "Scripts para añadir funcionalidades a Nautilus."\
         FALSE "Ubuntu Extra" "Codecs propietarios para ubuntu"\
         FALSE "Compresión" "Utilidades de compresión y de diferentes formatos rar, unace, 7zip, arj ..."\
@@ -310,6 +301,12 @@ then
                        if [  $? -eq 0  ]
                        then
                             instapack $choice printer-driver-cups-pdf
+                      fi
+            elif [  "$choice" = "Okular" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            instapack $choice okular
                       fi
             elif [  "$choice" = "Gimp" ];
                    then
