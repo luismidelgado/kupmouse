@@ -350,7 +350,7 @@ then
                        if [  $? -eq 0  ]
                        then
                             sudo apt-get install libcanberra-gtk-module libcanberra-gtk0 -y
-                            wget https://download2.interactivebrokers.com/installers/tws/latest/tws-latest-linux-x64.sh
+                            wget -q https://download2.interactivebrokers.com/installers/tws/latest/tws-latest-linux-x64.sh #-q modo silencioso
                             bash tws-latest-linux-x64.sh
                             rm tws-latest-linux-x64.sh
                       fi
