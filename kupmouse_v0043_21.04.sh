@@ -154,7 +154,8 @@ choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         FALSE "Gimp Extras" "Filtros, pinceles, formatos, ... extras para Gimp."\
         FALSE "Folder Color" "Añadir colores a las carpetas."\
         FALSE "Wine" "Librerías para emular aplicaciones Windows."\
-        FALSE "Wine Extras" "Playonlinux y Winetricks para instalar aplicaciones windows y librerías de microsoft."`
+        FALSE "Wine Extras" "Playonlinux y Winetricks para instalar aplicaciones windows y librerías de microsoft."\
+        FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
 
 if [ $? -eq 0 ]
 then
@@ -343,6 +344,15 @@ then
                        if [  $? -eq 0  ]
                        then
                             instapack $choice playonlinux winetricks
+                      fi
+            elif [  "$choice" = "TWS" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            sudo apt-get install libcanberra-gtk-module libcanberra-gtk0 -y
+                            wget https://download2.interactivebrokers.com/installers/tws/latest/tws-latest-linux-x64.sh
+                            bash tws-latest-linux-x64.sh
+                            rm tws-latest-linux-x64.sh
                       fi
             else #instarepo()
                    echo Siguiente
