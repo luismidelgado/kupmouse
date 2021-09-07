@@ -112,19 +112,7 @@ releaselinux=$(echo `lsb_release -rs`) # Display de release number of the curren
 processor=$(echo `uname -m`) # Nos dice el tipo de procesador
 #check if the user $nameversion and $processor
 if [ $lsbrelease = `lsb_release -cs` ]; then
-    zenity --info \
-       --title="$NameProg $vkup" \
-       --width=350 \
-       --text "Bienvenido al instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>"
-else
-    zenity --error \
-       --title="$NameProg $vkup" \
-       --width=350 \
-       --text "Error: en esta versión de Ubuntu no se puede ejecutar el instalador <b>Cupmouse</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\n Tu versión es $Distributorlinux"
-	exit 0
-fi
-
-choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
+    choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         --text="Bienvenido al instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\nSelecciona los paquetes a instalar:" \
         --list --column="Selección" --column="Paquete" --column="Descripción"\
         --checklist FALSE "Utilidades" "Utilidades del sistema: curl, wget, exFAT, ntfs, usbmount."\
@@ -135,6 +123,7 @@ choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         FALSE "Tools PDF" "Herramientas para gestionar PDF."\
         FALSE "Okular" "Okular is a universal document viewer with support for advanced document features, such as annotations, forms, and embedded files."\
         FALSE "Scripts Nautilus" "Scripts para añadir funcionalidades a Nautilus."\
+        FALSE "Pandoc" "Herramienta para convertir diferentes formatos entre docx, pdf, markdown, ..."\
         FALSE "Ubuntu Extra" "Codecs propietarios para ubuntu"\
         FALSE "Compresión" "Utilidades de compresión y de diferentes formatos rar, unace, 7zip, arj ..."\
         FALSE "Gcalcli" "gcalcli is a Python application that allows you to access your Google Calendar from a command line."\
@@ -309,6 +298,12 @@ then
                        then
                             instapack $choice okular
                       fi
+            elif [  "$choice" = "Pandoc" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            instapack $choice pandoc
+                      fi
             elif [  "$choice" = "Gimp" ];
                    then
                        if [  $? -eq 0  ]
@@ -364,7 +359,13 @@ else
         echo cancel selected
 fi
 
-
+else
+    zenity --error \
+       --title="$NameProg $vkup" \
+       --width=350 \
+       --text "Error: en esta versión de Ubuntu no se puede ejecutar el instalador <b>Cupmouse</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\n Tu versión es $Distributorlinux"
+	exit 0
+fi
 
 #yad --height=300 --list --checklist --column="Selección" --column="Paquetes" --column="Descripción" < ./paquetes.list
 
