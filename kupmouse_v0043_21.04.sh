@@ -144,6 +144,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Folder Color" "Añadir colores a las carpetas."\
         FALSE "Wine" "Librerías para emular aplicaciones Windows."\
         FALSE "Wine Extras" "Playonlinux y Winetricks para instalar aplicaciones windows y librerías de microsoft."\
+        FALSE "Node.js Current" "As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications."\
         FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
 
 if [ $? -eq 0 ]
@@ -340,6 +341,13 @@ then
                        then
                             instapack $choice playonlinux winetricks
                       fi
+            elif [  "$choice" = "Node.js" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+                            instapack $choice nodejs build-essential
+                      fi
             elif [  "$choice" = "TWS" ];
                    then
                        if [  $? -eq 0  ]
@@ -373,6 +381,7 @@ fi
 #sudo sh -c 'echo "[some repository]" >> /etc/apt/sources.list.d/tsbarnes-ubuntu-indicator-keylock-focal.list'
 #deb http://ppa.launchpad.net/tsbarnes/indicator-keylock/ubuntu/ focal main
 ## deb-src http://ppa.launchpad.net/tsbarnes/indicator-keylock/ubuntu/ focal main
+##Elininar repositorio: sudo add-apt-repository --remove ppa:kdenlive/kdenlive-stable
 
 # Installation of many packages in a fresh Ubuntu
 
@@ -387,21 +396,12 @@ fi
 #sudo add-apt-repository ppa:ubuntu-x-swat/x-updates # nvidia
 #sudo add-apt-repository ppa:transmissionbt/ppa
 #sudo add-apt-repository ppa:jd-team/jdownloader
-##Elininar repositorio: sudo add-apt-repository --remove ppa:kdenlive/kdenlive-stable
-
-###################################
-# Remove programs not used
-###################################
-#echo
-#echo "Removing programs not used..."
-#echo
-#sudo apt-get remove hexchat hexchat-common thunderbird thunderbird-gnome-support thunderbird-locale-en  thunderbird-locale-en-us  banshee tomboy pidgin pidgin-libnotify -y
 
 ###################################
 # Installations
 ###################################
 ### important
-#sudo apt-get install gparted ntfs-config usbmount -y
+
 ### desktop
 #sudo apt-get remove xscreensaver xscreensaver-data xscreensaver-gl  indicator-multiload -y
 #sudo apt-get install xdotool gnome-screensaver -y
@@ -455,8 +455,6 @@ clear
 #echo "Configuring..."
 ### java
 #sudo update-alternatives --config java
-
-
 
 ###################################
 # Finish!
