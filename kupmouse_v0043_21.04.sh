@@ -62,8 +62,9 @@ instadeb() {
     wget -c $2$3
     echo "50" ; sleep 1
     sudo dpkg -i $3
+    #sudo apt install application.deb
     echo "80" ; sleep 1
-    sudo apt-get install -f
+    sudo apt-get -f install
     echo "99" ; sleep 1
     sudo rm $3
     echo "100" ; sleep 1
@@ -144,7 +145,9 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Folder Color" "Añadir colores a las carpetas."\
         FALSE "Wine" "Librerías para emular aplicaciones Windows."\
         FALSE "Wine Extras" "Playonlinux y Winetricks para instalar aplicaciones windows y librerías de microsoft."\
-        FALSE "Node.js Current" "As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications."\
+        FALSE "Node.js" "As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications."\
+        FALSE "Gastby-CLI" "Gatsby enables developers to build fast, secure, and powerful websites using a React-based framework."\
+        FALSE "Localwp" "The #1 local WordPress development tool."\
         FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
 
 if [ $? -eq 0 ]
@@ -162,19 +165,7 @@ then
                    then
                        if [  $? -eq 0  ]
                        then
-                            sudo apt-get install -f
-                            sudo dpkg --configure -a
-                            clear
-                            echo $choice
-                            sleep 1s
-                            echo "10" ; sleep 1
-                            sudo apt-get -y install ubuntu-restricted-extras
-                            echo "99" ; sleep 1
-                            sudo apt-get install -f
-                            echo "100" ; sleep 1
-                            clear
-                            echo $choice, completed installation
-                            sleep 2s
+                            instapack $choice ubuntu-restricted-extras
                       fi
             elif [  "$choice" = "Preload" ];
                    then
@@ -346,7 +337,20 @@ then
                        if [  $? -eq 0  ]
                        then
                             curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
-                            instapack $choice nodejs build-essential
+                            instapack $choice nodejs build-essential gcc g++ make
+                      fi
+            elif [  "$choice" = "Gastby-CLI" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            npm install -g gatsby-cli
+                      fi
+            elif [  "$choice" = "Localwp" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            #wget -q https://cdn.localwp.com/stable/latest/deb #-q modo silencioso
+                            instadeb $choice https://cdn.localwp.com/stable/latest/ deb
                       fi
             elif [  "$choice" = "TWS" ];
                    then
