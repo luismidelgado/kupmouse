@@ -116,7 +116,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
     choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         --text="Bienvenido al instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\nSelecciona los paquetes a instalar:" \
         --list --column="Selección" --column="Paquete" --column="Descripción"\
-        --checklist FALSE "Utilidades" "Utilidades del sistema: curl, wget, exFAT, ntfs, usbmount."\
+        --checklist TRUE "Utilidades" "Utilidades del sistema: curl, wget, exFAT, ntfs, usbmount, python3-pip, ..."\
         FALSE "Preload" "Utilidad para optimizar memoria RAM."\
         FALSE "Gparted" "Utilidad para particionar discos duros."\
         FALSE "Screenkey" "A screencast tool to display your keys, inspired by Screenflick."\
@@ -148,7 +148,8 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Node.js" "As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications."\
         FALSE "Gastby-CLI" "Gatsby enables developers to build fast, secure, and powerful websites using a React-based framework."\
         FALSE "Youtube-dl" "Youtube-dl is a command-line program to download videos from YouTube.com and a few more sites."\
-        FALSE "Localwp" "The #1 local WordPress development tool."\
+        FALSE "mpv" "MPV is a media player for the command line."\
+        FALSE "Localwp" "The #1 local WordPress development tool."\sudo apt install mpv
         FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
 
 if [ $? -eq 0 ]
@@ -160,7 +161,7 @@ then
                    then
                        if [  $? -eq 0  ]
                        then
-                            instapack $choice curl wget exfat-fuse exfat-utils ntfs-3g usbmount
+                            instapack $choice curl wget exfat-fuse exfat-utils ntfs-3g usbmount python3-pip
                       fi
             elif [  "$choice" = "Ubuntu Extra" ];
                    then
@@ -359,6 +360,12 @@ then
                        then
                             sudo pip install --upgrade youtube-dl
                       fi
+            elif [  "$choice" = "mpv" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            instapack $choice mpv
+                      fi
             elif [  "$choice" = "TWS" ];
                    then
                        if [  $? -eq 0  ]
@@ -458,6 +465,7 @@ fi
 echo
 echo "Cleaning..."
 sudo apt-get autoclean
+sudo apt autoremove
 clear
 ###################################
 # Configuring
