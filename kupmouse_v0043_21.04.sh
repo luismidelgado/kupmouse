@@ -147,6 +147,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Wine Extras" "Playonlinux y Winetricks para instalar aplicaciones windows y librerías de microsoft."\
         FALSE "Node.js" "As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications."\
         FALSE "Gastby-CLI" "Gatsby enables developers to build fast, secure, and powerful websites using a React-based framework."\
+        FALSE "Youtube-dl" "Youtube-dl is a command-line program to download videos from YouTube.com and a few more sites."\
         FALSE "Localwp" "The #1 local WordPress development tool."\
         FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
 
@@ -352,6 +353,12 @@ then
                             #wget -q https://cdn.localwp.com/stable/latest/deb #-q modo silencioso
                             instadeb $choice https://cdn.localwp.com/stable/latest/ deb
                       fi
+            elif [  "$choice" = "Youtube-dl" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            sudo pip install --upgrade youtube-dl
+                      fi
             elif [  "$choice" = "TWS" ];
                    then
                        if [  $? -eq 0  ]
@@ -375,7 +382,7 @@ else
     zenity --error \
        --title="$NameProg $vkup" \
        --width=350 \
-       --text "Error: en esta versión de Ubuntu no se puede ejecutar el instalador <b>Cupmouse</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\n Tu versión es $Distributorlinux"
+       --text "Error: en esta versión de Ubuntu no se puede ejecutar el instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\n Tu versión es $Distributorlinux"
 	exit 0
 fi
 
