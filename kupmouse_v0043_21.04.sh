@@ -123,6 +123,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Plugins Gedit" "Plugins para añadir funcionalidades a Gedit."\
         FALSE "Tools PDF" "Herramientas para gestionar PDF."\
         FALSE "Okular" "Okular is a universal document viewer with support for advanced document features, such as annotations, forms, and embedded files."\
+        FALSE "Zotero" "Zotero is a free, easy-to-use tool to help you collect, organize, cite, and share research."\
         FALSE "Scripts Nautilus" "Scripts para añadir funcionalidades a Nautilus."\
         FALSE "Pandoc" "Herramienta para convertir diferentes formatos entre docx, pdf, markdown, ..."\
         FALSE "Ubuntu Extra" "Codecs propietarios para ubuntu"\
@@ -230,7 +231,7 @@ then
                             wget -qO - https://typora.io/linux/public-key.asc | sudo apt-key add -
                             sudo add-apt-repository 'deb https://typora.io/linux ./' -y
                             sudo apt-get update
-                            sudo apt-get install typora
+                            instapack $choice typora
                       fi
             elif [  "$choice" = "Slimbook" ];
                    then
@@ -292,6 +293,15 @@ then
                        then
                             instapack $choice okular
                       fi
+            elif [  "$choice" = "Zotero" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            wget -qO - https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh | sudo bash
+                            sudo apt update
+                            instapack $choice zotero
+                      fi
+                      Zotero
             elif [  "$choice" = "Pandoc" ];
                    then
                        if [  $? -eq 0  ]
