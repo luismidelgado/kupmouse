@@ -38,6 +38,8 @@ instapack() {
     sleep 1s
     (
     echo "10" ; sleep 1
+    sudo apt-get update
+    echo "20" ; sleep 1
     sudo apt-get -y install "${@:2}"
     echo "99" ; sleep 1
     sudo apt-get install -f
@@ -84,7 +86,7 @@ for pkg in $pkgs; do
     if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
         read -p "Es necesario instalar $pkg sino saldrás del programa, ¿estas seguro? [y/n]" -n 1 -r
         if [[ $REPLY =~ ^[Yy]$ ]]; then
-            sudo apt install $pkg -y
+            sudo apt-get install $pkg -y
         else
             exit 0
         fi
@@ -150,7 +152,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Gastby-CLI" "Gatsby enables developers to build fast, secure, and powerful websites using a React-based framework."\
         FALSE "Youtube-dl" "Youtube-dl is a command-line program to download videos from YouTube.com and a few more sites."\
         FALSE "mpv" "MPV is a media player for the command line."\
-        FALSE "Localwp" "The #1 local WordPress development tool."\sudo apt install mpv
+        FALSE "Localwp" "The #1 local WordPress development tool."\
         FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
 
 if [ $? -eq 0 ]
@@ -298,7 +300,6 @@ then
                        if [  $? -eq 0  ]
                        then
                             wget -qO - https://github.com/retorquere/zotero-deb/releases/download/apt-get/install.sh | sudo bash
-                            sudo apt update
                             instapack $choice zotero
                       fi
                       Zotero
