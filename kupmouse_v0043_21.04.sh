@@ -134,6 +134,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Deborphan" "Deborphan encuentra paquetes «huérfanos» en el sistema."\
         FALSE "Git" "Git es un sistema de control de versiones para manejar proyectos de programación."\
         FALSE "Latex" "Utilidades para trabajar con LaTEX."\
+        FALSE "Latex Full" "Todo el paquete para trabajar con LaTEX."\ 
         FALSE "Chromium" "Navegador opensource basado en Chrome de google"\
         FALSE "Chrome" "Navegador web de Google"\
         FALSE "Firefox ESR" "Navegador Firefox Extended Support Release, versión de soporte extendido."\
@@ -276,6 +277,12 @@ then
                        if [  $? -eq 0  ]
                        then
                             instapack $choice texlive-latex-base texlive-base texlive-latex-extra texlive-font-utils texlive-fonts-recommended texlive-extra-utils texlive-lang-spanish texlive-lang-english texlive-pictures texlive-science gedit-latex-plugin
+                      fi
+            elif [  "$choice" = "Latex" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            instapack $choice texlive-full texlive-latex-extra texlive-font-utils texlive-fonts-recommended texlive-extra-utils texlive-lang-spanish texlive-lang-english texlive-pictures texlive-science gedit-latex-plugin
                       fi
             elif [  "$choice" = "Plugins Gedit" ];
                    then
