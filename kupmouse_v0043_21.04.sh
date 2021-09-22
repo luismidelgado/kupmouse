@@ -152,6 +152,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Node.js" "As an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable network applications."\
         FALSE "Gastby-CLI" "Gatsby enables developers to build fast, secure, and powerful websites using a React-based framework."\
         FALSE "Youtube-dl" "Youtube-dl is a command-line program to download videos from YouTube.com and a few more sites."\
+        FALSE "Youtube-dlp" "yt-dlp is a youtube-dl fork based on the now inactive youtube-dlc. The main focus of this project is adding new features and patches while also keeping up to date with the original project."\
         FALSE "mpv" "MPV is a media player for the command line."\
         FALSE "Localwp" "The #1 local WordPress development tool."\
         FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
@@ -377,6 +378,12 @@ then
                        if [  $? -eq 0  ]
                        then
                             sudo pip install --upgrade youtube-dl
+                      fi
+            elif [  "$choice" = "Youtube-dlp" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            python3 -m pip install --upgrade yt-dlp
                       fi
             elif [  "$choice" = "mpv" ];
                    then
