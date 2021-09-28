@@ -132,7 +132,8 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
     choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         --text="Bienvenido al instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\nSelecciona los paquetes a instalar:" \
         --list --column="Selección" --column="Paquete" --column="Descripción"\
-        --checklist TRUE "Utilidades" "Utilidades del sistema: curl, wget, exFAT, ntfs, usbmount, python3-pip, ..."\
+        --checklist TRUE "Importante" "Herramientas importantes para Ubuntu."\
+        TRUE "Utilidades" "Utilidades del sistema: curl, wget, exFAT, ntfs, usbmount, python3-pip, ..."\
         FALSE "Preload" "Utilidad para optimizar memoria RAM."\
         FALSE "Gparted" "Utilidad para particionar discos duros."\
         FALSE "Screenkey" "A screencast tool to display your keys, inspired by Screenflick."\
@@ -179,6 +180,14 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         IFS="|"
         for choice in $choices
         do
+            if [  "$choice" = "Importante" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            cd /kupmouse
+                            chmod +x important
+                            ./important
+                      fi
             if [  "$choice" = "Utilidades" ];
                    then
                        if [  $? -eq 0  ]
