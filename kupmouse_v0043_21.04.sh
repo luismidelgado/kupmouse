@@ -91,6 +91,12 @@ instadeb() {
     sleep 2s
 }
 
+# Para aceptar los terminos de la licencia.
+#    zenity --text-info \
+#    --title="License" \
+#    --filename=$FILE \
+#    --checkbox="I read and accept the terms."
+
 #pkgs='yad certbot'
 pkgs='yad'
 for pkg in $pkgs; do
@@ -126,13 +132,13 @@ lsbrelease=hirsute
 Distributorlinux=$(echo `lsb_release -is`)
 releaselinux=$(echo `lsb_release -rs`) # Display de release number of the currently installed distribution
 processor=$(echo `uname -m`) # Nos dice el tipo de procesador
-while true; do #Iniciamos el menú en un bucle infinito
+#while true; do #Iniciamos el menú en un bucle infinito
     #check if the user $nameversion and $processor
 if [ $lsbrelease = `lsb_release -cs` ]; then
     choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         --text="Bienvenido al instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\nSelecciona los paquetes a instalar:" \
         --list --column="Selección" --column="Paquete" --column="Descripción"\
-        --checklist TRUE "Importante" "Herramientas importantes para Ubuntu."\
+        --checklist TRUE "Importante" "Herramientas importantes para Ubuntu Pc"\
         TRUE "Utilidades" "Utilidades del sistema: curl, wget, exFAT, ntfs, usbmount, python3-pip, ..."\
         FALSE "Preload" "Utilidad para optimizar memoria RAM."\
         FALSE "Gparted" "Utilidad para particionar discos duros."\
@@ -173,10 +179,10 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Localwp" "The #1 local WordPress development tool."\
         FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
     
-    if [[ $? -eq 1 ]]; then #Cancel selected
-        exit 0
-        break
-    elif [ $? -eq 0 ]; then #Selected OK
+#    if [[ $? -eq 1 ]]; then #Cancel selected
+#        exit 0
+#        break
+    if [ $? -eq 0 ]; then #Selected OK
         IFS="|"
         for choice in $choices
         do
@@ -184,11 +190,11 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
                    then
                        if [  $? -eq 0  ]
                        then
-                            cd /kupmouse
+                            cd ./kupmouse
                             chmod +x important
                             ./important
                       fi
-            if [  "$choice" = "Utilidades" ];
+            elif [  "$choice" = "Utilidades" ];
                    then
                        if [  $? -eq 0  ]
                        then
@@ -448,7 +454,7 @@ else
        --text "Error: en esta versión de Ubuntu no se puede ejecutar el instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\n Tu versión es $Distributorlinux"
 	exit 0
 fi
-done
+#done
 
 #yad --height=300 --list --checklist --column="Selección" --column="Paquetes" --column="Descripción" < ./paquetes.list
 
