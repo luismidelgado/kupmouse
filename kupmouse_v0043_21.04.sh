@@ -3,9 +3,21 @@
 # Script en bash que intenta hacer la vida más fácil al usuario de ubuntu,
 # instalando programas sencillos y útiles para su trabajo diario.
 # Bash script to install useful programs for your daily work in a fresh Ubuntu.
-# More info in http://kacharreando.com
+# More info in http://kacharreando.com Copyright (C) 
 #
 # Last Update: 2021-09-01
+# +--------------------------------------------------------------------------------+
+# |                                                                                |
+# | Este programa es Software Libre; Puedes distribuirlo y/o                       |
+# | modificarlo bajo los términos de la GNU General Public License                 |
+# | como está publicada por la Free Software Foundation; cualquier                 |
+# | versión 3 de la Licencia, o (opcionalmente) cualquier versión                  |
+# | posterior. http://www.gnu.org/licenses/lgpl.html                               |
+# |                                                                                |
+# | Este programa es distribuido con la esperanza de que sea útil,                 |
+# | pero SIN NINGUNA GARANTÍA. Vea la GNU General Public License                   |
+# | para más detalles.                                                             |
+# +--------------------------------------------------------------------------------+
 
 instarepo() {
     sudo apt-get install -f 
@@ -96,7 +108,8 @@ done
 # Update and Upgrade
 ###################################
 #echo
-echo "Updating and upgrading..."
+echo "Updating and upgrading system ..."
+sleep 1
 #echo
 sudo apt-get update && sudo apt-get upgrade -y
 clear
@@ -113,7 +126,8 @@ lsbrelease=hirsute
 Distributorlinux=$(echo `lsb_release -is`)
 releaselinux=$(echo `lsb_release -rs`) # Display de release number of the currently installed distribution
 processor=$(echo `uname -m`) # Nos dice el tipo de procesador
-#check if the user $nameversion and $processor
+while true; do #Iniciamos el menú en un bucle infinito
+    #check if the user $nameversion and $processor
 if [ $lsbrelease = `lsb_release -cs` ]; then
     choices=`zenity --title="$NameProg $vkup" --width=740 --height=550 \
         --text="Bienvenido al instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\nSelecciona los paquetes a instalar:" \
@@ -134,7 +148,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Deborphan" "Deborphan encuentra paquetes «huérfanos» en el sistema."\
         FALSE "Git" "Git es un sistema de control de versiones para manejar proyectos de programación."\
         FALSE "Latex" "Utilidades para trabajar con LaTEX."\
-        FALSE "Latex Full" "Todo el paquete para trabajar con LaTEX."\ 
+        FALSE "Latex Full" "Todo el paquete para trabajar con LaTEX."\
         FALSE "Chromium" "Navegador opensource basado en Chrome de google"\
         FALSE "Chrome" "Navegador web de Google"\
         FALSE "Firefox ESR" "Navegador Firefox Extended Support Release, versión de soporte extendido."\
@@ -157,9 +171,11 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "mpv" "MPV is a media player for the command line."\
         FALSE "Localwp" "The #1 local WordPress development tool."\
         FALSE "TWS" "Trader Workstation es la aplicación de Interactive Brokers para operar con la plataforma."`
-
-if [ $? -eq 0 ]
-then
+    
+    if [[ $? -eq 1 ]]; then #Cancel selected
+        exit 0
+        break
+    elif [ $? -eq 0 ]; then #Selected OK
         IFS="|"
         for choice in $choices
         do
@@ -414,8 +430,6 @@ then
              fi
         done
         IFS=""
-else
-        echo cancel selected
 fi
 
 else
@@ -425,6 +439,7 @@ else
        --text "Error: en esta versión de Ubuntu no se puede ejecutar el instalador <b>$NameProg</b> de aplicaciones extras imprescindibles para ubuntu. \nEstás usando Ubuntu $version $codenamelinux de $processor.\n\n Si te gusta visita <a href='https://kacharreando.com'>Kacharreando.com</a>\n\n Tu versión es $Distributorlinux"
 	exit 0
 fi
+done
 
 #yad --height=300 --list --checklist --column="Selección" --column="Paquetes" --column="Descripción" < ./paquetes.list
 
@@ -434,19 +449,6 @@ fi
 ## deb-src http://ppa.launchpad.net/tsbarnes/indicator-keylock/ubuntu/ focal main
 ##Elininar repositorio: sudo add-apt-repository --remove ppa:kdenlive/kdenlive-stable
 
-# Installation of many packages in a fresh Ubuntu
-
-###################################
-# Add repositories
-###################################
-#echo
-#echo "Installing repositories..."
-#echo
-#sudo apt-add-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
-#sudo add-apt-repository ppa:webupd8team/java
-#sudo add-apt-repository ppa:ubuntu-x-swat/x-updates # nvidia
-#sudo add-apt-repository ppa:transmissionbt/ppa
-#sudo add-apt-repository ppa:jd-team/jdownloader
 
 ###################################
 # Installations
