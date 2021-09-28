@@ -144,6 +144,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Typora" "Typora es un editor de Markdown que añade características muy interesantes."\
         FALSE "Slimbook" "Programas pensados para los ordenadores portátiles Slimbook"\
         FALSE "Telegram" "Telegram es la alternativa a Whatsapp"\
+        FALSE "Flameshot" "Flameshot es una herramienta de captura de pantalla con utilidades interesantes."\
         FALSE "Gimp" "Editor de imágenes que no tiene nada que envidiar a Photoshop."\
         FALSE "Gimp Extras" "Filtros, pinceles, formatos, ... extras para Gimp."\
         FALSE "Folder Color" "Añadir colores a las carpetas."\
@@ -248,6 +249,13 @@ then
                        if [  $? -eq 0  ]
                        then
                             instarepo "ppa:atareao/telegram" $choice telegram 
+                      fi
+            elif [  "$choice" = "Flameshot" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            instapack $choice flameshot 
+                            xdg-open https://kacharreando.com
                       fi
             elif [  "$choice" = "Compresión" ];
                    then
