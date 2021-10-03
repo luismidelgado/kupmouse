@@ -168,7 +168,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Flameshot" "Flameshot es una herramienta de captura de pantalla con utilidades interesantes."\
         FALSE "Gimp" "Editor de imágenes que no tiene nada que envidiar a Photoshop."\
         FALSE "Gimp Extras" "Filtros, pinceles, formatos, ... extras para Gimp."\
-        FALSE "Drawing" "Aplicación para dibujar en entornos Linux, centrándose en la sencillez."\
+        FALSE "Drawing" "Aplicación para dibujar en entornos Linux, centrándose en la sencillez, y con soporte de webp."\
         FALSE "Folder Color" "Añadir colores a las carpetas."\
         FALSE "Wine" "Librerías para emular aplicaciones Windows."\
         FALSE "Wine Extras" "Playonlinux y Winetricks para instalar aplicaciones windows y librerías de microsoft."\
