@@ -374,6 +374,10 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
                        if [  $? -eq 0  ]
                        then
                             instarepo "ppa:cartes/drawing" $choice drawing
+                            apt install libgdk-pixbuf2.0-dev webp libwebp-dev
+                            meson builddir -Dgdk_pixbuf_query_loaders_path="/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders"
+                            ninja -C builddir/
+                            sudo ninja -C builddir/ install
                       fi
             elif [  "$choice" = "Folder Color" ];
                    then
