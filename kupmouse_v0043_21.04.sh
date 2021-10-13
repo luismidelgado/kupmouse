@@ -374,6 +374,8 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
                        if [  $? -eq 0  ]
                        then
                             instarepo "ppa:cartes/drawing" $choice drawing
+                            wget -q -O - "https://github.com/aruiz/webp-pixbuf-loader/archive/refs/heads/master.tar.gz" | tar -xz
+                            cd webp-pixbuf-loader-master/
                             apt install libgdk-pixbuf2.0-dev webp libwebp-dev
                             meson builddir -Dgdk_pixbuf_query_loaders_path="/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders"
                             ninja -C builddir/
