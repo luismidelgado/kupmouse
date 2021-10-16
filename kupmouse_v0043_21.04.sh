@@ -46,7 +46,7 @@ instapack() {
     sudo apt-get install -f 
     sudo dpkg --configure -a
     clear                    
-    echo $1
+    echo "$1"
     sleep 1s
     (
     echo "10" ; sleep 1
@@ -61,7 +61,7 @@ instapack() {
     --title="$1" --width=300 --height=100\
     --percentage=0
     clear 
-    echo $1, completed installation
+    echo "$1", completed installation
     sleep 2s
 }
 
@@ -97,8 +97,9 @@ instadeb() {
 #    --filename=$FILE \
 #    --checkbox="I read and accept the terms."
 
+#sudo apt install apt-transport-https curl
 #pkgs='yad certbot'
-pkgs='yad'
+pkgs='yad apt-transport-https curl'
 for pkg in $pkgs; do
     status="$(dpkg-query -W --showformat='${db:Status-Status}' "$pkg" 2>&1)"
     if [ ! $? = 0 ] || [ ! "$status" = installed ]; then
@@ -159,6 +160,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Chromium" "Navegador opensource basado en Chrome de google"\
         FALSE "Chrome" "Navegador web de Google"\
         FALSE "Firefox ESR" "Navegador Firefox Extended Support Release, versión de soporte extendido."\
+        FALSE "Brave Browser" "Navegador privado centrado en la seguridad que se conecta con wallets de criptomonedas."\
         FALSE "VideoLAN" "Reproductor de video en su última versión en desarrollo"\
         FALSE "Kdenlive" "Kdenlive is a non-linear video editing suite, which supports DV, HDV and many more formats."\
         FALSE "LibreOffice" "LibreOffice es un paquete de productividad de ofimática."\
@@ -242,6 +244,14 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
                        if [  $? -eq 0  ]
                        then
                             instarepo "ppa:mozillateam/ppa" $choice firefox-esr
+                      fi
+            elif [  "$choice" = "Brave Browser" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+                            echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+                            instapack $choice brave-browser
                       fi
             elif [  "$choice" = "VideoLAN" ];
                    then
