@@ -161,6 +161,7 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
         FALSE "Chrome" "Navegador web de Google"\
         FALSE "Firefox ESR" "Navegador Firefox Extended Support Release, versión de soporte extendido."\
         FALSE "Brave Browser" "Navegador privado centrado en la seguridad que se conecta con wallets de criptomonedas."\
+        FALSE "Discord" "Discord es una plataforma social destinada a permitir crear grupos de chat para diferentes juegos y finalidades."\
         FALSE "VideoLAN" "Reproductor de video en su última versión en desarrollo"\
         FALSE "Kdenlive" "Kdenlive is a non-linear video editing suite, which supports DV, HDV and many more formats."\
         FALSE "LibreOffice" "LibreOffice es un paquete de productividad de ofimática."\
@@ -253,6 +254,15 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
                             echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
                             instapack $choice brave-browser
                       fi
+            elif [  "$choice" = "Discord" ];
+                   then
+                       if [  $? -eq 0  ]
+                       then
+                            wget -O ~/discord.deb "https://discordapp.com/api/download?platform=linux&format=deb"
+                            sudo dpkg -i discord.deb
+                            sudo apt-get -f install
+                      fi
+                      Discord
             elif [  "$choice" = "VideoLAN" ];
                    then
                        if [  $? -eq 0  ]
