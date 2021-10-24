@@ -308,6 +308,8 @@ if [ $lsbrelease = `lsb_release -cs` ]; then
                        then
                             instapack $choice flameshot 
                             xdg-open https://kacharreando.com
+                            #Shortkey for flameshot in ubuntu
+                            #https://askubuntu.com/questions/1036473/how-to-change-screenshot-application-to-flameshot-on-ubuntu-18-04#:~:text=Go%20to%20Settings%20%2D%3E%20Devices%20%2D,shortcut%20to%20PrtScr%20(print).
                       fi
             elif [  "$choice" = "Compresión" ];
                    then
