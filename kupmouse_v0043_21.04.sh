@@ -552,13 +552,6 @@ echo "Cleaning..."
 sudo apt-get autoclean
 sudo apt autoremove
 clear
-###################################
-# Configuring
-###################################
-#echo
-#echo "Configuring..."
-### java
-#sudo update-alternatives --config java
 
 ###################################
 # Finish!
